@@ -1,0 +1,57 @@
+<html> 
+<head> 
+  <meta name=viewport content="user-scalable=no,width=device-width" />
+  <link rel=stylesheet href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+  <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+  <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+<script src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>
+</head> 
+
+<body> 
+
+<div data-role=page id=win1>
+  <div data-role=header>
+    <h1>Window 1</h1>
+  </div>
+
+  <div data-role=content>
+    <p> Window content 1</p>
+    <a id="showMap" data-role=button> Display map </a>
+   <!-- <a id="showPopUp" href="#myPopup" data-rel="popup" data-role=button> show popup</a>-->
+    
+    <div data-role="popup" id="myPopup" class="ui-content"> 
+    <p><img src="images/pin.jpg" height="16"/>&nbsp;&nbsp;Tap on a pin to find King services and locations</p>
+    <p><img src="images/info.jpg" height="16"/>&nbsp;&nbsp;Learn more about this part of the library</p>
+    <div data-role=button id="PopupOKBtn">OK</div>
+		</div>
+    
+  </div>
+  <div data-role=content id='mapDiv'></div>
+</div>
+
+</body>
+</html>
+<script>
+
+$("#showMap").bind("click",function(event)
+{ 
+	var lat = 37.3359622;
+	var longitude = -121.8878356;
+	var latlong = new google.maps.LatLng(lat, longitude);
+	var options = { zoom:15,
+					center: latlong,
+					//mapTypeId: google.maps.MapTypeId.ROADMAP
+					};
+	var $content = $("#mapDiv");
+	$content.height(350);
+	var map = new google.maps.Map($content[0], options);
+});
+
+$('#PopupOKBtn').bind("click", function(event)
+{
+	$('#myPopup').popup("close");
+});
+$(document).bind("pagebeforeshow",function(){
+	$('#myPopup').popup("open");
+});
+</script>
